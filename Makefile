@@ -12,3 +12,5 @@ terraform_validate: terraform_init
 
 terraform_format:
 	cd infra/src/terraform && terraform fmt -recursive -check
+
+terraform_ci: terraform_format terraform_validate
