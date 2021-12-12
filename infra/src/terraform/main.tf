@@ -12,11 +12,15 @@ locals {
 
 }
 
+data "digitalocean_kubernetes_versions" "k8s_version" {
+  version_prefix = "1.18."
+}
+
 resource "digitalocean_kubernetes_cluster" "k8s" {
   name         = "k8s-01"
   region       = "sfo3"
-  version      = "1.20.2-do.0"
   auto_upgrade = true
+  version      = data.digitalocean_kubernetes_versions.k8s_version.latest_version
 
   node_pool {
     name       = "autoscale-worker-pool"
