@@ -1,0 +1,5 @@
+.terraform
+*.swp
+*.swo
+*tfplan
+*plan
