@@ -12,10 +12,13 @@ terraform_apply: terraform_init terraform_plan
 terraform_validate: terraform_init
 	cd $(dev_path) && terraform validate
 
-terraform_format:
+terraform_format_check:
 	cd $(dev_path) && terraform fmt -recursive -check
 
-terraform_ci: terraform_format terraform_validate
+terraform_format:
+	terraform fmt -recursive
+
+terraform_ci: terraform_format_check terraform_validate
 
 terraform_clean:
 	cd $(dev_path) && rm -r .terraform

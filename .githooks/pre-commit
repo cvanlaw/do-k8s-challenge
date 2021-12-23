@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Formats any *.tf files according to the hashicorp convention
+files=$(git diff --staged --name-only)
+for f in $files
+do
+  if [ -e "$f" ] && [[ $f == *.tf ]]; then
+    terraform fmt -check=true $f > /dev/null || {
+        echo "\u274c pre-hook: Incorrect formatting, run terraform fmt -recursive before committing"
+        exit 1
+    }
+  fi
+done
+
+exit 0
