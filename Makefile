@@ -4,7 +4,7 @@ terraform_init:
 	cd $(dev_path) && terraform init -backend-config=backend.hcl
 
 terraform_plan: terraform_init
-	cd $(dev_path) && terraform plan -out=tfplan
+	cd $(dev_path) && terraform plan -out=tfplan -var repo="github.com/cvanlaw/do-k8s-challenge" -var environment="dev"
 
 terraform_apply: terraform_init terraform_plan
 	cd $(dev_path) && terraform apply tfplan
@@ -18,7 +18,7 @@ terraform_format_check:
 terraform_format:
 	terraform fmt -recursive
 
-terraform_ci: terraform_format_check terraform_validate
+terraform_ci: terraform_format_check terraform_validate terraform_plan
 
 terraform_clean:
 	cd $(dev_path) && rm -r .terraform
