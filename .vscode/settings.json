@@ -1,0 +1,6 @@
+{
+	"terraform-ls.rootModules": [
+		"infra/src/terraform/k8s-cluster",
+		"infra/src/terraform/environments/dev"
+	]
+}

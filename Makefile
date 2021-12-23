@@ -1,16 +1,21 @@
+dev_path = infra/src/terraform/environments/dev
+
 terraform_init:
-	cd infra/src/terraform && terraform init -backend-config=backend.hcl
+	cd $(dev_path) && terraform init -backend-config=backend.hcl
 
 terraform_plan: terraform_init
-	cd infra/src/terraform && terraform plan -out=tfplan
+	cd $(dev_path) && terraform plan -out=tfplan
 
 terraform_apply: terraform_init terraform_plan
-	cd infra/src/terraform && terraform apply tfplan
+	cd $(dev_path) && terraform apply tfplan
 
 terraform_validate: terraform_init
-	cd infra/src/terraform && terraform validate
+	cd $(dev_path) && terraform validate
 
 terraform_format:
-	cd infra/src/terraform && terraform fmt -recursive -check
+	cd $(dev_path) && terraform fmt -recursive -check
 
 terraform_ci: terraform_format terraform_validate
+
+terraform_clean:
+	cd $(dev_path) && rm -r .terraform

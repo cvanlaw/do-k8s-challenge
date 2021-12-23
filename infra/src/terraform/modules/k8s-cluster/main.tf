@@ -1,19 +1,12 @@
-terraform {
-  backend "remote" {}
-}
-
-
 locals {
   tags = [
-    "environment:prod",
-    "repo:cvanlaw/do-k8s-challenge"
+    "environment:${var.environment}",
+    "repo:${var.repo}"
   ]
-
-
 }
 
 data "digitalocean_kubernetes_versions" "k8s_version" {
-  version_prefix = "1.18."
+  version_prefix = "1.21."
 }
 
 resource "digitalocean_kubernetes_cluster" "k8s" {
