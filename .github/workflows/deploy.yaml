@@ -59,3 +59,6 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: make terraform_apply
+      - name: kubectl apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: make argocd_deploy

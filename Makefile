@@ -1,4 +1,5 @@
 dev_path = infra/src/terraform/environments/dev
+argocd_path = k8s/argocd/src
 
 terraform_init:
 	cd $(dev_path) && terraform init -backend-config=backend.hcl
@@ -22,3 +23,6 @@ terraform_ci: terraform_format_check terraform_validate terraform_plan
 
 terraform_clean:
 	cd $(dev_path) && rm -r .terraform
+
+argocd_deploy:
+	cd $(argocd_path) && kubectl -n argocd apply -k .
